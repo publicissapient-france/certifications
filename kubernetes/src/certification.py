@@ -46,23 +46,25 @@ class Certification(object):
 
             try:
                 self.currently_employed = self.CurrentlyEmployed[infos[1]]
-            except KeyError:
+            except KeyError as error:
                 raise CertificationDeserializationError.InvalidValue (
                         name        = self.name,
                         field_desc  = "employment status",
                         value       = infos[1],
-                        allowed     = [e.name for e in self.CurrentlyEmployed])
+                        allowed     = [e.name for e in self.CurrentlyEmployed]
+                        ) from error
 
             self.certification = infos[2]
 
             try:
                 self.status = self.CertificationStatus(infos[3])
-            except KeyError:
+            except ValueError as error:
                 raise CertificationDeserializationError.InvalidValue (
                         name        = self.name,
                         field_desc  = "certification status",
                         value       = infos[3],
-                        allowed     = [e.name for e in self.CertificationStatus])
+                        allowed     = [e.name for e in self.CertificationStatus]
+                        ) from error
 
             if self.status == self.CertificationStatus.Active:
                 self.obtention_date     = infos[4]
