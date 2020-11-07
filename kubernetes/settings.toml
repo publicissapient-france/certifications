@@ -1,8 +1,0 @@
-[development]
-log_level = "DEV"
-env = "development"
-sheet_name = "Kubernetes"
-
-[production]
-log_level = "PROD"
-env = "production"
