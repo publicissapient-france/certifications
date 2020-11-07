@@ -32,5 +32,6 @@ def parseSpreadsheetRows(rows):
         # so that we know everything we have to fix and not just a single item
         except CertificationDeserializationError as e:
             parsingErrors.append(e)
-    raise(SpreadsheetDeserializationFailed(parsingErrors))
+    if parsingErrors:
+        raise(SpreadsheetDeserializationFailed(parsingErrors))
 
