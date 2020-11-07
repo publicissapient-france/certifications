@@ -1,0 +1,5 @@
+[default]
+spreadsheet_id  = {must_exist=true}
+
+[development]
+service_account_file_path = {must_exist=true}
