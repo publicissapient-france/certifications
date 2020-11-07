@@ -17,10 +17,18 @@ class TestCertification(unittest.TestCase):
         ["Luc Legardeur", "Oui", "CKA", "Active", "Some date"],
         ["Luc Legardeur", "Oui", "CKA", "Active", "Some date", "Some other date"]
         )
-    def test_deserialize_with_missing_data_should_raise_exception(self, value):
-        row = value
-        # pytlint: disable=syntax-error
+    def test_missing_data_should_raise_exception(self, value):
         with self.assertRaises(CertificationDeserializationError.MissingInfo):
+            Certification(value)
+
+    def test_invalid_employment_status_should_raise_exception(self):
+        row = ["Luc Legardeur", "Maybe?", "CKA", "En cours de préparation"]
+        with self.assertRaises(CertificationDeserializationError.InvalidValue):
+            Certification(row)
+
+    def test_invalid_certification_status_should_raise_exception(self):
+        row = ["Luc Legardeur", "Oui", "CKA", "Some INEXISTING status"]
+        with self.assertRaises(CertificationDeserializationError.InvalidValue):
             Certification(row)
 
     def test_sum_tuple(self):
