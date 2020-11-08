@@ -4,28 +4,31 @@ from certification import Certification, CertificationDeserializationError
 from config import settings
 from google_auth_helpers import getGoogleCredentials
 
+
 class SpreadsheetDownloadFailed(Exception):
     pass
+
 
 def downloadSpreadsheet():
     creds = getGoogleCredentials()
     sheetsAPI = build('sheets', 'v4', credentials=creds)
-    # pylint: disable=no-member
     result = sheetsAPI.spreadsheets().values().get(
-            spreadsheetId   = settings.SPREADSHEET_ID,
-            range           = settings.SHEET_NAME
-            ).execute()
+        spreadsheetId   = settings.SPREADSHEET_ID,
+        range           = settings.SHEET_NAME
+    ).execute()
 
     rows = result.get('values')
     return rows
 
+
 class SpreadsheetDeserializationFailed(Exception):
     pass
+
 
 def parseSpreadsheetRows(rows):
     parsingErrors = []
     certifications = []
-    for row in rows[1:]: # Ignoring header
+    for row in rows[1:]:  # Ignoring header
         try:
             certifications.append(Certification(row))
         # We keep gathering errors until we have tried to parse all the rows
@@ -34,4 +37,3 @@ def parseSpreadsheetRows(rows):
             parsingErrors.append(e)
     if parsingErrors:
         raise(SpreadsheetDeserializationFailed(parsingErrors))
-
