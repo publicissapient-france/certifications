@@ -64,7 +64,8 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           check_name: Unit Test Results
-          comment_title: Unit Test Statistics
+          # Re-enable when it's out
+          #comment_title: Unit Test Statistics 
           hide_comments: all but latest
           comment_on_pr: true
           files: test-results/**/*.xml
