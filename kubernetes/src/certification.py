@@ -1,11 +1,9 @@
+import re
 import datetime
 import dateparser
 from enum import Enum
 
-# pylint: disable=bad-super-call
 class CertificationDeserializationError(object):
-    class MissingInfo(Exception):
-        pass
         #def __init__(self, field_desc):
         #    self.message = "Failed to deserialize {field_desc}: field is missing".format(
         #            field_desc = field_desc)
@@ -17,25 +15,48 @@ class CertificationDeserializationError(object):
                     name = name,
                     value = value,
                     allowed = allowed)
-            super(type(self), self).__init__(self.message)
+            super().__init__(self.message)
+    class InvalidObtentionDate(InvalidValue):
+        def __init__(self, error):
+            self = error
+    class InvalidExpirationDate(InvalidValue):
+        def __init__(self, error):
+            self = error
+
+    class MissingInfo(Exception):
+        pass
     class IncoherentValues(Exception):
         pass #raise NotImplementedError
+
+    class UnknownCertificateIdFormat(Exception):
+        pass
 
 class CertificationStatus(Enum):
     Active = "Active"
     InProgress = "En cours de préparation"
-    # Expired = "Expirée" # Not introduced yet
+    # Expired = "Expirée" # TODO introduce it
 
-# class CertificateIdFormat(Enum):
-#     New
-#     Old
+class CertificateIdFormat(Enum):
+    First = r'(CKA|CKAD)-\d{4}-\d{6}-\d{4}'
+    Second = r'LF-[a-z\d]{10}'
 
 class CertificateId(object):
+    '''There are 2 kinds of Certificate ID:
+       - Before ~June 2020: CKAD-0000-012345-0123
+       - After ~June 2020: LF-a1b2c3def4
+    This class represent such an ID.
+    '''
+
     def __init__(self, raw_id):
-        pass
-        # Match
-        # Set bool depending on format
-        # Raise error if not either format
+        if re.fullmatch(CertificateIdFormat.First.value, raw_id):
+            self.format = CertificateIdFormat.First
+        elif re.fullmatch(CertificateIdFormat.Second.value, raw_id):
+            self.format = CertificateIdFormat.Second
+        else:
+            raise CertificationDeserializationError.UnknownCertificateIdFormat(
+                "Certificate ID {id} doesn't match any known format".format(id=raw_id))
+        self.value = raw_id
+        # TODO check validity against some Linux Foundation API that might exist?
 
 class Certification(object):
     '''Certification represent a given certification for a given person.
@@ -84,9 +105,21 @@ class Certification(object):
                     name        = self.name,
                     field_desc  = date_description,
                     value       = raw_string,
-                    allowed     = "almost any date format"
+                    allowed     = "a valid date format"
                     )
         return parsed_date.date()
+
+    def _parseObtentionDate(self, raw_string):
+        try:
+            return self._parseDate(raw_string, "obtention date")
+        except CertificationDeserializationError.InvalidValue as error:
+            raise CertificationDeserializationError.InvalidObtentionDate(error) from error
+
+    def _parseExpirationDate(self, raw_string):
+        try:
+            return self._parseDate(raw_string, "expiration date")
+        except CertificationDeserializationError.InvalidValue as error:
+            raise CertificationDeserializationError.InvalidExpirationDate(error) from error
 
     def __init__(self, infos):
         print("Initializing Certification from infos: " + str(infos))
@@ -97,9 +130,12 @@ class Certification(object):
             self.status: CertificationStatus = self._parseCertificationStatus(infos[3])
 
             if self.status == CertificationStatus.Active:
-                self.obtention_date  = self._parseDate(infos[4], "obtention date")
-                self.expiration_date = self._parseDate(infos[5], "expiration_date")
-                self.certificate_id  = infos[6]
+                self.obtention_date  = self._parseObtentionDate(infos[4])
+                self.expiration_date = self._parseExpirationDate(infos[5])
+                if self.obtention_date > self.expiration_date:
+                    raise CertificationDeserializationError.IncoherentValues(
+                            "Obtention date cannot be _after_ the expiration date")
+                self.certificate_id  = CertificateId(infos[6])
         except IndexError as error:
             # TODO add details of object in error message
             raise CertificationDeserializationError.MissingInfo() from error
