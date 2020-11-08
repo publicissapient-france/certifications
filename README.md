@@ -2,6 +2,12 @@
 
 This repository contains code related to our Certifications.
 
+The objective are:
+
+- Getting certifications information
+- Sanitizing/checking them
+- Storing them in a reliable and stable format in S3
+
 # Pattern
 
 - One Function that encapsulates the logic of retrieving content
