@@ -14,6 +14,7 @@ jobs:
       - name: Lint with GitHub Super Linter
         uses: github/super-linter@v3
         env:
+          LINTER_RULES_PATH: . # Avoid having to create .github/linters/ dir
           VALIDATE_PYTHON_FLAKE8: true  # Code lint
           VALIDATE_PYTHON_BLACK: true   # Code style
           VALIDATE_YAML: true           # CI
