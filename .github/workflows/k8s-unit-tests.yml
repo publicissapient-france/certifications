@@ -14,7 +14,7 @@ on: [push, pull_request]
 #    # The chunk size used to split up large files during upload, in bytes
 #    upload-chunk-size: # optional
 jobs:
-  Unit testing:
+  Unit-testing:
 
     runs-on: ubuntu-latest
 
