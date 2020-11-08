@@ -8,10 +8,8 @@ settings = Dynaconf(
     env_switcher="XDD_K8S_CERTS_ENVIRONMENT",
 )
 
-#settings.validators.register(
+# settings.validators.register(
 #    Validator('spreadsheet_id', must_exist=True),
 #    Validator('service_account_file_path', must_exist=True, env='development'),
-#)
-#settings.validators.validate()
-
-
+# )
+# settings.validators.validate()

@@ -11,13 +11,15 @@ class SpreadsheetDownloadFailed(Exception):
 
 def downloadSpreadsheet():
     creds = getGoogleCredentials()
-    sheetsAPI = build('sheets', 'v4', credentials=creds)
+    sheetsAPI = build("sheets", "v4", credentials=creds)
+    # fmt: off
     result = sheetsAPI.spreadsheets().values().get(
         spreadsheetId   = settings.SPREADSHEET_ID,
         range           = settings.SHEET_NAME
     ).execute()
+    # fmt: on
 
-    rows = result.get('values')
+    rows = result.get("values")
     return rows
 
 
@@ -36,4 +38,4 @@ def parseSpreadsheetRows(rows):
         except CertificationDeserializationError as e:
             parsingErrors.append(e)
     if parsingErrors:
-        raise(SpreadsheetDeserializationFailed(parsingErrors))
+        raise SpreadsheetDeserializationFailed(parsingErrors)
