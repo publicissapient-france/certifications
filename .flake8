@@ -1,2 +1,31 @@
 [flake8]
-ignore = E221,E251
+max-line-length = 80
+
+# Add to default errors (E,F,W,C90)
+select = E
+    # E - Errors from pycodestyle
+    E,
+    # W - Warnings from pycodestyle
+    W,
+    # C - McCabe complexity warnings
+    C,
+    # F - Pyflakes errors
+    F,
+    # B - Bugbear warnings
+    B,
+    # B950 - Allow to exceed max line length by 10%. For more details, see:
+    #   - https://github.com/PyCQA/flake8-bugbear#opinionated-warnings
+    #   - https://github.com/psf/black/blob/master/docs/the_black_code_style.md#line-length
+    B950
+
+# Can't use extend-ignore otherwise Bugbear doesn't pick up E501 ignore and
+# refuses to enable B950
+ignore =
+    # E203 - see https://github.com/psf/black/blob/master/docs/the_black_code_style.md#slices
+    E203,
+    # E221 - so we can have some nicely aligned arguments in somes places
+    E221,
+    # E251 - so we can have some nicely aligned arguments in somes places
+    E251,
+    # E501 - because we delegate line length check to B950
+    E501
