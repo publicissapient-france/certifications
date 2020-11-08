@@ -1,4 +1,4 @@
-from dynaconf import Dynaconf, Validator
+from dynaconf import Dynaconf  # , Validator
 
 settings = Dynaconf(
     envvar_prefix="XDD_K8S_CERTS",
