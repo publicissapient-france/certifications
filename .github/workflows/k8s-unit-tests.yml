@@ -30,10 +30,11 @@ jobs:
         python -m pip install --upgrade pip
         #pip install flake8 pytest
         pip install -r kubernetes/requirements.txt.lock
+        pip install -r kubernetes/tooling.txt
     - name: Run unit tests
       run: |
         cd kubernetes
-        python -m unittest tests/tests.py
+        python tests/tests.py
         #- name: Lint with flake8
         #  run: |
         #    # stop the build if there are Python syntax errors or undefined names
