@@ -1,5 +1,8 @@
 # XDD - Certifications - Kubernetes
 
+![Unit tests status](https://img.shields.io/github/workflow/status/xebia-france/certifications/Kubernetes%20Certifications%20unit%20tests?label=Unit%20tests)
+[![Slack channel](https://img.shields.io/badge/Slack-%23xebia--data--driven-red?style=social&logo=slack&logoColor=black)](https://xebiafr.slack.com/archives/C9D5E48F2)
+
 ## Internals
 
 - The Spreadsheet ID is given as input. It could be discovered based on the
