@@ -1,0 +1,4 @@
+[flake8]
+ignore = E221,E251
+per-file-ignores =
+     src/certification.py: E501
