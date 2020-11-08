@@ -35,30 +35,32 @@ jobs:
     needs: install-dependencies
     runs-on: ubuntu-latest
     steps:
-    - name: Run unit tests
-      run: |
-        cd kubernetes
-        python -m pytest --junitxml=test-results/kubernetes/unit-tests-results.xml tests/tests.py
-        #- name: Lint with flake8
-        #  run: |
-        #    # stop the build if there are Python syntax errors or undefined names
-        #    flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        #    # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        #    flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-        #- name: Test with pytest
-        #  run: |
-        #    pytest
+      - name: Run unit tests
+        run: |
+          cd kubernetes
+          python -m pytest --junitxml=test-results/kubernetes/unit-tests-results.xml tests/tests.py
+          #- name: Lint with flake8
+          #  run: |
+          #    # stop the build if there are Python syntax errors or undefined names
+          #    flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          #    # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          #    flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+          #- name: Test with pytest
+          #  run: |
+          #    pytest
   publish-test-results:
     needs: install-dependencies
-    - name: Publish Unit Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v1.4
-      if: always()
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        check_name: Unit Test Results
-        comment_title: Unit Test Statistics
-        hide_comments: all but latest
-        comment_on_pr: true
-        files: test-results/**/*.xml
-        report_individual_runs: true
-        deduplicate_classes_by_file_name: false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1.4
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          check_name: Unit Test Results
+          comment_title: Unit Test Statistics
+          hide_comments: all but latest
+          comment_on_pr: true
+          files: test-results/**/*.xml
+          report_individual_runs: true
+          deduplicate_classes_by_file_name: false
