@@ -34,7 +34,7 @@ jobs:
       - name: Run unit tests
         run: |
           cd kubernetes
-          python -m pytest --junitxml=../test-results/kubernetes/unit-tests.xml tests/tests.py
+          python -m pytest --junitxml=../test-results/test-results/kubernetes/unit-tests.xml tests/tests.py
           #- name: Lint with flake8
           #  run: |
           #    # stop the build if there are Python syntax errors or undefined names
