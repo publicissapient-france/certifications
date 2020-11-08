@@ -14,6 +14,8 @@ jobs:
       - name: Lint with GitHub Super Linter
         uses: github/super-linter@v3
         env:
-          VALIDATE_ALL_CODEBASE: false
-          DEFAULT_BRANCH: master
+          VALIDATE_PYTHON_FLAKE8: true  # Code lint
+          VALIDATE_PYTHON_BLACK: true   # Code style
+          VALIDATE_YAML: true           # CI
+          VALIDATE_MARKDOWN: true       # READMEs and stuff
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
