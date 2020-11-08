@@ -20,3 +20,5 @@ jobs:
           VALIDATE_YAML: true           # CI
           VALIDATE_MARKDOWN: true       # READMEs and stuff
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LOG_LEVEL: DEBUG
+          ACTIONS_RUNNER_DEBUG: true
