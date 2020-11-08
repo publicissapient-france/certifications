@@ -2,8 +2,14 @@ import unittest
 import datetime
 from ddt import ddt, data
 
-from src.certification import CertificationDeserializationError, Certification, CertificationStatus, CertificateIdFormat
+from src.certification import (
+    CertificationDeserializationError,
+    Certification,
+    CertificationStatus,
+    CertificateIdFormat,
+)
 
+# fmt: off
 VALID_SAMPLE = [
     "Luc Legardeur",    # 0
     "Oui",              # 1
@@ -13,6 +19,8 @@ VALID_SAMPLE = [
     "2 janvier 2023",   # 5
     "LF-abc123def4",    # 6
 ]
+# fmt: on
+
 
 @ddt
 class TestCertificationErrors(unittest.TestCase):
@@ -25,25 +33,25 @@ class TestCertificationErrors(unittest.TestCase):
         ["Luc Legardeur"],
         ["Luc Legardeur", "Oui"],
         ["Luc Legardeur", "Oui", "CKAD"],
-        )
+    )
     def test_missing_basic_infos(self, value):
-        '''
+        """
         When basic information (name, employment status, certification
         name/status) are missing, an appropriate Exception should be raised
-        '''
+        """
         with self.assertRaises(CertificationDeserializationError.MissingInfo):
             Certification(value)
-    
+
     @data(
         ["Luc", "Oui", "CKAD", "Active"],
         ["Luc", "Oui", "CKAD", "Active", "1 janvier 2020"],
-        ["Luc", "Oui", "CKAD", "Active", "1 janvier 2020", "2 janvier 2021"]
-        )
+        ["Luc", "Oui", "CKAD", "Active", "1 janvier 2020", "2 janvier 2021"],
+    )
     def test_missing_infos_for_active_certification(self, value):
-        '''
+        """
         When information about an Active certification (pass/expiration date,
         ID) are missing, an appropriate Exception should be raised.
-        '''
+        """
         with self.assertRaises(CertificationDeserializationError.MissingInfo):
             Certification(value)
 
@@ -61,7 +69,7 @@ class TestCertificationErrors(unittest.TestCase):
 
     def test_expiration_date_before_obtention_date(self):
         data = list(self.VALID_SAMPLE_TO_MUTATE)
-        data[4], data[5] = data[5], data[4] # Swap obtention and expiration dates
+        data[4], data[5] = data[5], data[4]  # Swap obtention and expiration dates
         with self.assertRaises(CertificationDeserializationError.IncoherentValues):
             Certification(data)
 
@@ -80,7 +88,9 @@ class TestCertificationErrors(unittest.TestCase):
     def test_invalid_certificate_id_format(self):
         data = list(self.VALID_SAMPLE_TO_MUTATE)
         data[6] = "SomeW31rdCertificate-ID"
-        with self.assertRaises(CertificationDeserializationError.UnknownCertificateIdFormat):
+        with self.assertRaises(
+            CertificationDeserializationError.UnknownCertificateIdFormat
+        ):
             Certification(data)
 
     # Test weird date formats
@@ -97,10 +107,8 @@ class TestCertification(unittest.TestCase):
         self.assertEqual(cert.currently_employed, True)
         self.assertEqual(cert.certification, data[2])
         self.assertEqual(cert.status, CertificationStatus.Active)
-        self.assertEqual(cert.obtention_date,
-                            datetime.date(year=2020, month=1, day=1))
-        self.assertEqual(cert.expiration_date,
-                            datetime.date(year=2023, month=1, day=2))
+        self.assertEqual(cert.obtention_date, datetime.date(year=2020, month=1, day=1))
+        self.assertEqual(cert.expiration_date, datetime.date(year=2023, month=1, day=2))
         self.assertEqual(cert.certificate_id.value, data[6])
         self.assertEqual(cert.certificate_id.format, CertificateIdFormat.Second)
 
@@ -126,10 +134,11 @@ class TestCertification(unittest.TestCase):
         self.assertEqual(cert.certificate_id.value, data[6])
         self.assertEqual(cert.certificate_id.format, CertificateIdFormat.First)
 
+
 # test mixed up CKA and CKAD prefix in ID
 # Split errors more
-    # def test_preparing(self):
-    #     row = ["Luc Legardeur", "Oui", "CKAD", "En cours de préparation"]
-    #     certification = Certification(row)
-    #     self.assertEqual(certification.name, "Luc Legardeur")
-    #     self.assertEqual(certification.currently_employed, "Luc Legardeur")
+# def test_preparing(self):
+#     row = ["Luc Legardeur", "Oui", "CKAD", "En cours de préparation"]
+#     certification = Certification(row)
+#     self.assertEqual(certification.name, "Luc Legardeur")
+#     self.assertEqual(certification.currently_employed, "Luc Legardeur")
