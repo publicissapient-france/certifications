@@ -1,4 +1,4 @@
-name: Kubernetes Certifications unit tests
+name: Unit Tests
 
 on:
   push:
