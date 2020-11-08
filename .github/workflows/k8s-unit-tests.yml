@@ -7,64 +7,62 @@ jobs:
     name: "Run Unit Tests"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: "Checkout code"
         uses: actions/checkout@v2
-      - name: Cache pip
+
+      - name: "Cache/Restore dependencies"
         uses: actions/cache@v2
         with:
-          # This path is specific to Ubuntu
-          path: ~/.cache/pip
-          # Look to see if there is a cache hit for the corresponding requirements file
+          path: ~/.cache/pip  # This path is specific to Ubuntu
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt.lock', 'tooling.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
             ${{ runner.os }}-
-      - name: Set up Python
+
+      - name: "Set up Python"
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - name: Install dependencies
+
+      - name: "Install dependencies"
         run: |
           python -m pip install --upgrade pip
           pip install -r kubernetes/requirements.txt.lock
           pip install -r kubernetes/tooling.txt
-      - name: Run unit tests
+
+      - name: "Run unit tests for Kubernetes certifications"
         run: |
           cd kubernetes
-          python -m pytest --junitxml=../test-results/test-results/kubernetes/unit-tests.xml tests/tests.py
-          #- name: Lint with flake8
-          #  run: |
-          #    # stop the build if there are Python syntax errors or undefined names
-          #    flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          #    # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-          #    flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-          #- name: Test with pytest
-          #  run: |
-          #    pytest
-      - name: Upload pytest test results
+          python -m pytest \
+            --junitxml=../to-be-uploaded/tests-results/kubernetes/unit-tests.xml \
+            tests/tests.py
+
+      - name: "Upload tests results artifact"
         uses: actions/upload-artifact@v2
         if: always()
         with:
-          name: test-results
-          path: test-results
+          name: tests-results
+          path: to-be-uploaded
           if-no-files-found: error
+
   publish-test-results:
+    name: "Publish Unit Tests Results"
     needs: install-dependencies
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v2
         with:
-          name: test-results
-      - name: Publish Unit Test Results
+          name: tests-results
+      - name: "Publish Unit Tests Results"
         uses: EnricoMi/publish-unit-test-result-action@v1.4
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          check_name: Unit Test Results
-          # Re-enable when it's out
+          check_name: Unit Tests Results
+          # TODO : Re-enable when it's out
           #comment_title: Unit Test Statistics 
           hide_comments: all but latest
           comment_on_pr: true
-          files: test-results/**/*.xml
+          files: tests-results/**/*.xml
           report_individual_runs: true
           deduplicate_classes_by_file_name: false
