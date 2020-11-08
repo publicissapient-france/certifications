@@ -12,7 +12,17 @@ The objective are:
 - Sanitizing/checking them
 - Storing them in a reliable and stable format in S3
 
-# Pattern
+## Coding practices
+
+### Lint
+
+Code is linted using flake8.
+
+### Codestyle
+
+Code is formatted using Black.
+
+## Pattern
 
 - One Function that encapsulates the logic of retrieving content
 
