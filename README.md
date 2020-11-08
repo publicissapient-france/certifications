@@ -1,6 +1,6 @@
 # Sapient France - Certifications
 
-![Unit tests status](https://img.shields.io/github/workflow/status/xebia-france/certifications/Kubernetes%20Certifications%20unit%20tests?label=Unit%20tests)
+![Unit tests status](https://img.shields.io/github/workflow/status/xebia-france/certifications/Kubernetes%20Certifications%20unit%20tests?label=Unit%20tests&logo=github)
 ![Lint & CodeStyle status](https://img.shields.io/github/workflow/status/xebia-france/certifications/Lint%20Code%20Base?label=Lint%20%26%20CodeStyle&logo=github)
 
 [![Slack channel](https://img.shields.io/badge/Slack-%23xebia--data--driven-red?style=social&logo=slack&logoColor=black)](https://xebiafr.slack.com/archives/C9D5E48F2)
