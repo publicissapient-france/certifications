@@ -1,7 +1,5 @@
 from __future__ import print_function
-import csv
-import requests
-import os.path
+# import csv
 
 from spreadsheet import downloadSpreadsheet, parseSpreadsheetRows
 
