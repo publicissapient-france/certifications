@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   install-dependencies:
-    name: "Install dependencies"
+    name: "Dependencies + Unit tests"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -29,15 +29,12 @@ jobs:
           #pip install flake8 pytest
           pip install -r kubernetes/requirements.txt.lock
           pip install -r kubernetes/tooling.txt
-  unit-testing:
-    name: "Unit tests"
-    needs: install-dependencies
-    runs-on: ubuntu-latest
-    steps:
+          echo $PATH
+          which python
       - name: Run unit tests
         run: |
           cd kubernetes
-          python -m pytest --junitxml=test-results/kubernetes/unit-tests-results.xml tests/tests.py
+          python -m pytest --junitxml=test-results/kubernetes/unit-tests.xml tests/tests.py
           #- name: Lint with flake8
           #  run: |
           #    # stop the build if there are Python syntax errors or undefined names
@@ -47,10 +44,20 @@ jobs:
           #- name: Test with pytest
           #  run: |
           #    pytest
+      - name: Upload pytest test results
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: test-results
+          path: test-results/
+          if-no-files-found: error
   publish-test-results:
     needs: install-dependencies
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: test-results
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1.4
         if: always()
