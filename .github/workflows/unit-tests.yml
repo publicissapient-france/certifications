@@ -1,6 +1,10 @@
 name: Kubernetes Certifications unit tests
 
-on: [push]
+on:
+  push:
+    paths:
+      - kubernetes/**
+      - .github/workflows/unit-tests.yml
 
 jobs:
   install-dependencies:
