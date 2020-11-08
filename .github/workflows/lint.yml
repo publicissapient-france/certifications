@@ -14,7 +14,6 @@ jobs:
       - name: Lint with GitHub Super Linter
         uses: github/super-linter@v3
         env:
-          PYTHON_FLAKE8_CONFIG_FILE: ../../../.flake8 # Otherwise it is searched next to workflow definitions
           VALIDATE_PYTHON_FLAKE8: true  # Code lint
           VALIDATE_PYTHON_BLACK: true   # Code style
           VALIDATE_YAML: true           # CI
