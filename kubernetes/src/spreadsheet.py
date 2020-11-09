@@ -1,3 +1,4 @@
+from typing import List
 from googleapiclient.discovery import build
 
 from certification import Certification, CertificationDeserializationError
@@ -9,7 +10,7 @@ class SpreadsheetDownloadFailed(Exception):
     pass
 
 
-def downloadSpreadsheet():
+def downloadSpreadsheet() -> List[str]:
     creds = getGoogleCredentials()
     sheetsAPI = build("sheets", "v4", credentials=creds)
     # fmt: off
@@ -27,7 +28,7 @@ class SpreadsheetDeserializationFailed(Exception):
     pass
 
 
-def parseSpreadsheetRows(rows):
+def parseSpreadsheetRows(rows) -> List[Certification]:
     parsingErrors = []
     certifications = []
     for row in rows[1:]:  # Ignoring header
@@ -39,3 +40,4 @@ def parseSpreadsheetRows(rows):
             parsingErrors.append(e)
     if parsingErrors:
         raise SpreadsheetDeserializationFailed(parsingErrors)
+    return certifications
