@@ -96,11 +96,11 @@ jobs:
     needs: run-unit-tests
     runs-on: ubuntu-latest
     steps:
+      - name: "Checkout code" # Otherwise the coveralls CLI doesn't find metadata...
+        uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
         with:
           name: tests-results
-      - name: "Checkout code" # Otherwise the coveralls CLI doesn't find metadata...
-        uses: actions/checkout@v2
       - name: "Set up Python"
         uses: actions/setup-python@v2
         with:
