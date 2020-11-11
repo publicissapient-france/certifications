@@ -33,6 +33,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r kubernetes/requirements.txt.lock
           pip install -r kubernetes/tooling.txt
+          pip install coveralls
 
       - name: "Run unit tests for Kubernetes certifications"
         run: |
@@ -98,5 +99,17 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: tests-results
-      - name: "Upload to Coveralls"
-        uses: AndreMiras/coveralls-python-action@develop
+      - name: "Set up Python"
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: "Install coveralls CLI"
+        run: |
+          python -m pip install --upgrade pip
+          pip install coveralls
+      - name: Upload Coverage
+        run: |
+          cd ./tests-results/kubernetes
+          coveralls
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
