@@ -2,9 +2,9 @@ name: Unit Tests
 
 on:
   push:
-    paths:
-      - kubernetes/**
-      - .github/workflows/unit-tests.yml
+    #paths:
+    #  - kubernetes/**
+    #  - .github/workflows/unit-tests.yml
 
 jobs:
   run-unit-tests:
