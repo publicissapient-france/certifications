@@ -5,8 +5,8 @@
 [![Code quality (Codacy)](https://img.shields.io/codacy/grade/1f244174349d443595675928999e0d1c?label=Code%20quality&logo=codacy)](https://app.codacy.com/gh/xebia-france/certifications/dashboard)
 ![Last commit](https://img.shields.io/github/last-commit/xebia-france/certifications?logo=github)
 
-[![Tests - Code coverage (on Codacy)](https://img.shields.io/codacy/coverage/1f244174349d443595675928999e0d1c?label=Tests%20coverage&logo=codacy)](https://app.codacy.com/gh/xebia-france/certifications/files)
-[![Tests - Code coverage (on Coveralls)](https://img.shields.io/coveralls/github/xebia-france/certifications?label=Tests%20coverage&logo=coveralls)](https://coveralls.io/github/xebia-france/certifications)
+[![Tests - Code coverage (on Codacy)](https://img.shields.io/codacy/coverage/1f244174349d443595675928999e0d1c?label=Tests%20-%20Code%20coveragelogo=codacy)](https://app.codacy.com/gh/xebia-france/certifications/files)
+[![Tests - Code coverage (on Coveralls)](https://img.shields.io/coveralls/github/xebia-france/certifications?label=Tests%20-%20Code%20coverage&logo=coveralls)](https://coveralls.io/github/xebia-france/certifications)
 [![Tests - Code coverage (on Codecov)](https://img.shields.io/codecov/c/github/xebia-france/certifications?label=Tests%20-%20Code%20coverage&logo=codecov)](https://codecov.io/gh/xebia-france/certifications)
 
 [![Slack channel](https://img.shields.io/badge/Slack-%23xebia--data--driven-red?style=social&logo=slack&logoColor=black)](https://xebiafr.slack.com/archives/C9D5E48F2)
