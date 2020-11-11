@@ -39,7 +39,9 @@ jobs:
           cd kubernetes
           python -m pytest \
             --junitxml=../to-be-uploaded/tests-results/kubernetes/unit-tests.xml \
+            --cov=src/ --cov-report=xml \
             tests/tests.py
+          mv coverage.xml ../to-be-uploaded/tests-results/coverage.xml
 
       - name: "Upload tests results artifact"
         uses: actions/upload-artifact@v2
