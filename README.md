@@ -3,7 +3,7 @@
 ![Unit tests status](https://img.shields.io/github/workflow/status/xebia-france/certifications/Kubernetes%20Certifications%20unit%20tests?label=Unit%20tests&logo=github)
 ![Lint & CodeStyle status](https://img.shields.io/github/workflow/status/xebia-france/certifications/Lint%20Code%20Base?label=Lint%20%26%20CodeStyle&logo=github)
 ![Last commit](https://img.shields.io/github/last-commit/xebia-france/certifications?logo=github)
-![Tests - Code coverage (on Codecov)](https://img.shields.io/codecov/c/github/xebia-france/certifications?label=Tests%20-%20Code%20coverage&logo=codecov)
+[![Tests - Code coverage (on Codecov)](https://img.shields.io/codecov/c/github/xebia-france/certifications?label=Tests%20-%20Code%20coverage&logo=codecov)](https://codecov.io/gh/xebia-france/certifications)
 
 [![Slack channel](https://img.shields.io/badge/Slack-%23xebia--data--driven-red?style=social&logo=slack&logoColor=black)](https://xebiafr.slack.com/archives/C9D5E48F2)
 
