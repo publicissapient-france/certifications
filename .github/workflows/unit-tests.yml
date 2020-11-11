@@ -69,7 +69,7 @@ jobs:
           #comment_title: Unit Test Statistics 
           hide_comments: all but latest
           comment_on_pr: true
-          files: tests-results/**/*.xml
+          files: tests-results/**/unit-tests.xml
           report_individual_runs: true
           deduplicate_classes_by_file_name: false
 
