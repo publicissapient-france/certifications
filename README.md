@@ -3,7 +3,7 @@
 [![Unit tests status](https://img.shields.io/github/workflow/status/xebia-france/certifications/Kubernetes%20Certifications%20unit%20tests?label=Unit%20tests&logo=github)](https://github.com/xebia-france/certifications/actions?query=workflow%3A%22Unit+Tests%22+branch%3Amaster)
 ![Lint & CodeStyle status](https://img.shields.io/github/workflow/status/xebia-france/certifications/Lint%20Code%20Base?label=Lint%20%26%20CodeStyle&logo=github)
 [![Code quality (Codacy)](https://img.shields.io/codacy/grade/1f244174349d443595675928999e0d1c?label=Code%20quality&logo=codacy)](https://app.codacy.com/gh/xebia-france/certifications/dashboard)
-![Last commit](https://img.shields.io/github/last-commit/xebia-france/certifications?logo=github)
+[![Last commit](https://img.shields.io/github/last-commit/xebia-france/certifications?logo=github)](https://github.com/xebia-france/certifications/commits/master)
 
 [![Tests - Code coverage (on Codacy)](https://img.shields.io/codacy/coverage/1f244174349d443595675928999e0d1c?label=Tests%20-%20Code%20coveragelogo=codacy)](https://app.codacy.com/gh/xebia-france/certifications/files)
 [![Tests - Code coverage (on Coveralls)](https://img.shields.io/coveralls/github/xebia-france/certifications?label=Tests%20-%20Code%20coverage&logo=coveralls)](https://coveralls.io/github/xebia-france/certifications)
