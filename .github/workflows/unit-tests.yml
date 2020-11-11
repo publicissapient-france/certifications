@@ -41,7 +41,7 @@ jobs:
             --junitxml=../to-be-uploaded/tests-results/kubernetes/unit-tests.xml \
             --cov=src/ --cov-report=xml \
             ./tests/
-          mv coverage.xml ../to-be-uploaded/tests-results/coverage.xml
+          mv coverage.xml ../to-be-uploaded/tests-results/kubernetes/coverage.xml
 
       - name: "Upload tests results artifact"
         uses: actions/upload-artifact@v2
@@ -83,7 +83,7 @@ jobs:
           name: tests-results
       - uses: codecov/codecov-action@v1  # https://github.com/codecov/codecov-action
         with:
-          file: ./tests-results/coverage.xml
+          file: ./tests-results/kubernetes/coverage.xml
           flags: unit-tests
           env_vars: "python, pytest"
           name: codecov-github-actions
