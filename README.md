@@ -5,6 +5,7 @@
 ![Last commit](https://img.shields.io/github/last-commit/xebia-france/certifications?logo=github)
 ![Code quality (Codacy)](https://img.shields.io/codacy/grade/1f244174349d443595675928999e0d1c?label=Code%20quality&logo=codacy)
 
+![Tests - Code coverage (on Codacy)](https://img.shields.io/codacy/coverage/1f244174349d443595675928999e0d1c?label=Tests%20coverage&logo=codacy)
 ![Tests - Code coverage (on Coveralls)](https://img.shields.io/coveralls/github/xebia-france/certifications?label=Tests%20coverage&logo=coveralls)
 [![Tests - Code coverage (on Codecov)](https://img.shields.io/codecov/c/github/xebia-france/certifications?label=Tests%20-%20Code%20coverage&logo=codecov)](https://codecov.io/gh/xebia-france/certifications)
 
