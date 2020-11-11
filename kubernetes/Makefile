@@ -13,3 +13,6 @@ format::
 
 coverage::
 	echo "TODO"
+
+nuke::
+	git clean -xn
