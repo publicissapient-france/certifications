@@ -72,3 +72,19 @@ jobs:
           files: tests-results/**/*.xml
           report_individual_runs: true
           deduplicate_classes_by_file_name: false
+
+  upload-coverage-to-codecov:
+    name: "Upload coverage to Codecov"
+    needs: run-unit-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: tests-results
+      - uses: codecov/codecov-action@v1  # https://github.com/codecov/codecov-action
+        with:
+          file: ./tests-results/coverage.xml
+          flags: unit-tests
+          env_vars: "python, pytest"
+          name: codecov-github-actions
+          fail_ci_if_error: true
