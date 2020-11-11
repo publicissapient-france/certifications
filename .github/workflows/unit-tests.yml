@@ -81,10 +81,22 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: tests-results
-      - uses: codecov/codecov-action@v1  # https://github.com/codecov/codecov-action
+      - name: "Upload to Codecov"
+        uses: codecov/codecov-action@v1  # https://github.com/codecov/codecov-action
         with:
           file: ./tests-results/kubernetes/coverage.xml
           flags: unit-tests
           env_vars: "python, pytest"
           name: codecov-github-actions
           fail_ci_if_error: true
+
+  upload-coverage-to-coveralls:
+    name: "Upload coverage to Coveralls"
+    needs: run-unit-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: tests-results
+      - name: "Upload to Coveralls"
+        uses: AndreMiras/coveralls-python-action@develop
