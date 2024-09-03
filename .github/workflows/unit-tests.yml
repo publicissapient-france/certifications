@@ -57,7 +57,7 @@ jobs:
     needs: run-unit-tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4.1.7
         with:
           name: tests-results
       - name: "Publish Unit Tests Results"
@@ -79,7 +79,7 @@ jobs:
     needs: run-unit-tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4.1.7
         with:
           name: tests-results
       - name: "Upload to Codecov"
@@ -98,7 +98,7 @@ jobs:
     steps:
       - name: "Checkout code" # Otherwise the coveralls CLI doesn't find metadata...
         uses: actions/checkout@v2
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4.1.7
         with:
           name: tests-results
       - name: "Set up Python"
@@ -121,7 +121,7 @@ jobs:
     needs: run-unit-tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4.1.7
         with:
           name: tests-results
       - name: "Upload to Codacy"
